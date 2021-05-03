@@ -1,4 +1,4 @@
-package com.company.namingserver;
+package com.company.discoveryserver;
 
 import javax.xml.stream.*;
 import java.io.*;

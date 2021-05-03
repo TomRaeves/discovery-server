@@ -1,4 +1,4 @@
-package com.company.namingserver;
+package com.company.discoveryserver;
 
 public class Node {
     private String nodeName;

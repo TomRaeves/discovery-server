@@ -1,4 +1,4 @@
-package com.company.namingserver;
+package com.company.discoveryserver;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;

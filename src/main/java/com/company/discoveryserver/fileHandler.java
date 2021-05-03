@@ -1,4 +1,4 @@
-package com.company.namingserver;
+package com.company.discoveryserver;
 
 import java.lang.*;
 import java.util.Map;

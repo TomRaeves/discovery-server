@@ -1,4 +1,4 @@
-package com.company.namingserver;
+package com.company.discoveryserver;
 
 import java.util.Iterator;
 import java.util.Map;
