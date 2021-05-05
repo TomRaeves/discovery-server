@@ -8,10 +8,12 @@ import java.util.Scanner;
 @SpringBootApplication
 public class DiscoveryServerApplication {
 
-	private static final int receivePort = 4501;
+	//https://www.baeldung.com/java-broadcast-multicast
+
+	private static final int receivePort = 4501;  //WELKE MOETEN DIT ZIJN????
 	private static final int sendPort = 4500;
 	private static final int multicastPort = 3456;
-	private static final String multicastAddress = "225.6.7.8";
+	private static final String multicastAddress = "0.0.0.0";
 	private static boolean running = true;
 
 	public static void main(String[] args){
