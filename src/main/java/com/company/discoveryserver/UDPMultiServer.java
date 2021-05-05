@@ -73,7 +73,7 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
             case "Start":
                 nodeHandler.addNode(message, String.valueOf(hostAddress));
                 if (nodeHandler.nodesMap.size() == 1)
-                    sendUniCast("Other nodes in the network," + (nodeHandler.nodesMap.size() - 1), hostAddress);
+                    sendUniCast("There are no other nodes in the network!", hostAddress);
                 else
                     sendUniCast("Other nodes in the network," + (nodeHandler.nodesMap.size() - 1) + ", Previous ID: " + nodeHandler.getPrevious(nodeHandler.getKey(String.valueOf(hostAddress))) + ", Next ID: " + nodeHandler.getNext(nodeHandler.getKey(String.valueOf(hostAddress))), hostAddress);
                 break;

@@ -1,22 +1,21 @@
 package com.company.discoveryserver;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.*;
 
 public class UDPServer extends Thread {
 
     private static boolean running = true;
-    private static DatagramSocket recieveSocket;
-    private static int recievePort;
+    private static DatagramSocket receiveSocket;
+    private static int receivePort;
     private static int sendPort;
 
-    public UDPServer(int recievePort, int sendPort) {
+    public UDPServer(int receivePort, int sendPort) {
         System.out.println("Starting UDP server...");
-        UDPServer.recievePort = recievePort;
+        UDPServer.receivePort = receivePort;
         UDPServer.sendPort = sendPort;
         try {
-            UDPServer.recieveSocket = new DatagramSocket(UDPServer.recievePort);
+            UDPServer.receiveSocket = new DatagramSocket(UDPServer.receivePort);
         } catch (SocketException e) {
             e.printStackTrace();
         }
@@ -28,7 +27,7 @@ public class UDPServer extends Thread {
         while (UDPServer.running) {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             try {
-                UDPServer.recieveSocket.receive(packet);
+                UDPServer.receiveSocket.receive(packet);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -37,10 +36,10 @@ public class UDPServer extends Thread {
     }
 
     public void shutdown() {
-        if (UDPServer.recieveSocket.isClosed())
+        if (UDPServer.receiveSocket.isClosed())
             UDPServer.running = false;
         else{
-            UDPServer.recieveSocket.close();
+            UDPServer.receiveSocket.close();
             UDPServer.running = false;
         }
     }
