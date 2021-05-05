@@ -64,4 +64,58 @@ public class nodeHandler {
         else
             return String.valueOf(key);
     }
+
+    public static String getPrevious(String key) {
+        int temp = -2147483647;
+        int check = Integer.parseInt(key);
+        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if (check > entry.getKey())
+                if (temp < entry.getKey())
+                    temp = entry.getKey();
+        }
+        if (temp == -2147483647){
+            temp = nodeHandler.getBiggestKey();
+        }
+        return String.valueOf(temp);
+    }
+
+    private static int getBiggestKey() { //because in a map you can't just do max(nodesMap) you have to iterate over all the keys
+        int temp = -2147483647;
+        Iterator<Map.Entry<Integer, String>> iterator = nodesMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if (entry.getKey() > temp)
+                temp = entry.getKey();
+        }
+        return temp;
+    }
+
+    public static String getNext(String key) {
+        int temp = 2147483647;
+        int check = Integer.parseInt(key);
+        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if (check < entry.getKey())
+                if (temp > entry.getKey())
+                    temp = entry.getKey();
+        }
+        if (temp == 2147483647)
+            temp = nodeHandler.getSmallestKey();
+        return String.valueOf(temp);
+    }
+
+    private static int getSmallestKey() {
+        int temp = 2147483647;
+        Iterator<Map.Entry<Integer, String>> iterator = nodesMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if (entry.getKey() < temp)
+                temp = entry.getKey();
+        }
+        return temp;
+    }
+
 }
