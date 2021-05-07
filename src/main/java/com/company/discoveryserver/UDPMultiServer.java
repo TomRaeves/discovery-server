@@ -53,6 +53,8 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
         }
     }
 
+    ////onDataReceived and handleData is point 4a-b-c of Discovery and Bootstrap
+
     private void onDataReceived(DatagramPacket packet) {
         InetAddress address = packet.getAddress();
         String data = new String(packet.getData(), 0, packet.getLength());
