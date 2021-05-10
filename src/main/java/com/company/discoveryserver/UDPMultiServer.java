@@ -72,7 +72,7 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
         assert command != null;
         switch (command) {
             case "Start":
-                nodeHandler.addNode(message, String.valueOf(hostAddress));
+                nodeHandler.addNode(message, String.valueOf(hostAddress.getHostAddress()));
                 if (nodeHandler.nodesMap.size() == 1)
                     sendUniCast("There are no other nodes in the network!", hostAddress);
                 else
