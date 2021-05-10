@@ -13,7 +13,7 @@ public class nodeHandler {
     public static void updateXML() { //The XML has to be updated after every adding/removing of a node
         System.out.println("Updating XML file");
         try {
-            XML.save(nodesMap, new FileWriter("test1.xml"));
+            XML.save(nodesMap, "nodeMap.xml");
         } catch (IOException | XMLStreamException e) {
             e.printStackTrace();
         }

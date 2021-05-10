@@ -6,14 +6,14 @@ import java.util.*;
 
 public class XML {
 
-    public static <K, V> void save(Map<K, V> map, Writer out) throws IOException, XMLStreamException {
+    public static <K, V> void save(Map<K, V> map, String filename) throws IOException, XMLStreamException {
 
         XMLStreamWriter xsw = null;
         try {
             try {
                 XMLOutputFactory xof = XMLOutputFactory.newInstance();
 
-                xsw = xof.createXMLStreamWriter(out);
+                xsw = xof.createXMLStreamWriter(new FileOutputStream(filename),"UTF-8");
                 xsw.writeStartDocument("utf-8", "1.0");
                 xsw.writeStartElement("entries");
                 xsw.writeCharacters("\r\n");
@@ -30,14 +30,7 @@ public class XML {
                 xsw.writeEndElement();
                 xsw.writeEndDocument();
 
-            } finally {
-
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {/* ignore */ }
-                }
-            }// end inner finally
+            } catch (IOException e) {/* ignore */ }
 
         } finally {
             if (xsw != null) {
