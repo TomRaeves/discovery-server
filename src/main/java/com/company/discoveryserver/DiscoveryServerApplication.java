@@ -47,10 +47,10 @@ public class DiscoveryServerApplication {
 					break;
 
 				case "help" :
-					System.out.println("List of all commands: ");
+					System.out.println("\nList of all commands: ");
 					System.out.println("Stop the server: 'Exit'");
 					System.out.println("Show the server's topology: 'Show'");
-					System.out.println("Get all commands: 'help'");
+					System.out.println("Get all commands: 'help'\n");
 					break;
 			}
 		}
