@@ -53,6 +53,7 @@ public class Controller {
             return "You are not yet added to the system therefore you cannot add files!\nTo add yourself as a user use the following command: /addNode/<name>\n";
         }
         fileHandler.addFile(fileName, nodeHandler.nodesMap);
+        Status.showStatus();
         return "The following file has been added succesfully " +fileName+" with fileID: " + Hasher.hashCode(fileName)+ " \n" ;
     }
 

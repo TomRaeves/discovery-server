@@ -82,9 +82,7 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
             default:
                 break;
         }
-        System.out.println("\nAmount of nodes in the network: " + nodeHandler.nodesMap.size());
-        System.out.println("Map: " + nodeHandler.nodesMap);
-        System.out.println("FileMap: " + fileHandler.filesMap);
+        Status.showStatus();
     }
 
     private void sendUniCast(String message, InetAddress hostAddress) {

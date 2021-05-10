@@ -36,6 +36,7 @@ public class DiscoveryServerApplication {
 				System.out.println("Stopping DiscoveryServer...");
 				running = false;
 			}
+
 		}
 		System.exit(0);
 	}
