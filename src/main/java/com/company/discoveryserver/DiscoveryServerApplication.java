@@ -10,7 +10,7 @@ public class DiscoveryServerApplication {
 
 	//https://www.baeldung.com/java-broadcast-multicast
 
-	private static final int receivePort = 4501;  //WELKE MOETEN DIT ZIJN????
+	private static final int receivePort = 4501;
 	private static final int sendPort = 4500;
 	private static final int multicastPort = 3456;
 	private static final String multicastAddress = "225.6.7.8";
@@ -24,19 +24,35 @@ public class DiscoveryServerApplication {
 		System.out.println("starting REST server... To stop the server type in Exit");
 		ConfigurableApplicationContext ctx = SpringApplication.run(DiscoveryServerApplication.class, args);
 		Scanner sc = new Scanner(System.in);
+		System.out.println("List of all commands: ");
+		System.out.println("Stop the server: 'Exit'");
+		System.out.println("Show the server's topology: 'Show'");
+		System.out.println("Get all commands: 'help'");
 		while(running){
 			String input = sc.nextLine();
-			if ("Exit".equals(input)) {
-				System.out.println("Stopping UDP server...");
-				UDP.shutdown();
-				System.out.println("Stopping UDPMulti server...");
-				UDPM.shutdown();
-				System.out.println("Stopping RESTServer...");
-				ctx.close();
-				System.out.println("Stopping DiscoveryServer...");
-				running = false;
-			}
+			switch(input) {
+				case "Exit" :
+					System.out.println("Stopping UDP server...");
+					UDP.shutdown();
+					System.out.println("Stopping UDPMulti server...");
+					UDPM.shutdown();
+					System.out.println("Stopping RESTServer...");
+					ctx.close();
+					System.out.println("Stopping DiscoveryServer...");
+					running = false;
+					break;
 
+				case "Show" :
+					Status.showStatus();
+					break;
+
+				case "help" :
+					System.out.println("List of all commands: ");
+					System.out.println("Stop the server: 'Exit'");
+					System.out.println("Show the server's topology: 'Show'");
+					System.out.println("Get all commands: 'help'");
+					break;
+			}
 		}
 		System.exit(0);
 	}
