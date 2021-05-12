@@ -76,8 +76,12 @@ public class UDPServer extends Thread {
                 next = message.substring(index);
                 String previousIP = nodeHandler.nodesMap.get(Integer.parseInt(previous));
                 previousIP = previousIP.substring(1);
+                previousIP = "1"+previousIP;
                 String nextIP = nodeHandler.nodesMap.get(Integer.parseInt(next));
                 nextIP = nextIP.substring(1);
+                nextIP = "1"+nextIP;
+                System.out.println("NextIP = "+nextIP);
+                System.out.println("previousIP = "+previousIP);
                 if (nodeHandler.nodesMap.size() == 1)
                     System.out.println("Last node left the network...");
                 else{
