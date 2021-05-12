@@ -28,7 +28,7 @@ public class Status {
                 while (iterator.hasNext()) {
                         counter++;
                         Map.Entry<Integer, String> entry = iterator.next();
-                        System.out.println("Node "+counter+" with IP: "+entry.getValue()+", with ID: "+entry.getKey()+" || Previous ID: "+nodeHandler.getPrevious(Integer.toString(entry.getKey()))+" || Next ID: "+nodeHandler.getNext(Integer.toString(entry.getKey())));
+                        System.out.println("Node "+counter+" with IP: "+entry.getValue()+", || Previous ID: "+nodeHandler.getPrevious(Integer.toString(entry.getKey()))+" || with ID: "+entry.getKey()+"|| Next ID: "+nodeHandler.getNext(Integer.toString(entry.getKey())));
                 }
         }
 }
