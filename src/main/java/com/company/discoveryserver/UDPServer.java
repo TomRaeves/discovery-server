@@ -66,7 +66,6 @@ public class UDPServer extends Thread {
                 String current;
                 String previous;
                 String next;
-                System.out.println("Ik zit in exit!!!");
                 index = (message.indexOf("Curr: ")) + 6;
                 int indexx = message.indexOf(",Prev: ");
                 current = message.substring(index, indexx);
