@@ -9,7 +9,7 @@ public class fileHandler {
     public static ConcurrentHashMap<Integer, File> filesMap = new ConcurrentHashMap<>();
 
     public static void addFile(String filename, ConcurrentHashMap<Integer, String> nodesMap){
-        System.out.println("Adding the following file to the files hashmap: " +filename);
+        System.out.println("Adding the following file to the files hashmap: " +filename+" ID:"+Hasher.hashCode(filename));
         File temp = new File(filename, nodesMap);
         filesMap.put(temp.getHash(),temp);
         System.out.println("File added to node with nodeID: "+temp.getNodeID());
@@ -33,6 +33,16 @@ public class fileHandler {
             }
         }
         return "could not find the file you were looking for.";
+    }
+
+    public static int searchFileint(ConcurrentHashMap<Integer, File> filesMap,String fileName){ // looks at which node a file is located
+        int hash=Hasher.hashCode(fileName);
+        for (ConcurrentHashMap.Entry<Integer, File> entry : filesMap.entrySet()) {
+            if(hash==entry.getKey()){
+                return entry.getValue().getNodeID();
+            }
+        }
+        return 0;
     }
 
     public static fileHandler instance;

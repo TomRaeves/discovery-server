@@ -37,6 +37,17 @@ public class nodeHandler {
         updateXML();
     }
 
+    public static void removeNodeviaName(String name) {
+        int ID= Hasher.hashCode(name);
+        System.out.println("Removing Node with name: "+name+" from hashmap");
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
+            if (ID == entry.getKey()) {
+                nodesMap.remove(entry.getKey());
+            }
+        }
+        updateXML();
+    }
+
     public static boolean checkNode(String IP){
         System.out.println("\nChecking if "+IP+" is already part of the active users...");
         Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
