@@ -36,12 +36,12 @@ public class UDPServer extends Thread {
     }
 
     public void shutdown() {
-        if (UDPServer.receiveSocket.isClosed())
-            UDPServer.running = false;
-        else{
-            UDPServer.receiveSocket.close();
-            UDPServer.running = false;
+        if (UDPServer.receiveSocket.isClosed()) {
         }
+        else {
+            UDPServer.receiveSocket.close();
+        }
+        UDPServer.running = false;
     }
 
     private void onDataReceived(DatagramPacket packet) {
@@ -61,51 +61,46 @@ public class UDPServer extends Thread {
             message = data.substring(index + 1);
         }
         assert command != null;
-        switch (command) {
-            case "Exit":
-                String current;
-                String previous;
-                String next;
-                index = (message.indexOf("Curr: ")) + 6;
-                int indexx = message.indexOf(",Prev: ");
-                current = message.substring(index, indexx);
-                indexx = indexx + 7;
-                index = message.indexOf(",Next: ");
-                previous = message.substring(indexx, index);
-                index = index + 7;
-                next = message.substring(index);
-                String previousIP = nodeHandler.nodesMap.get(Integer.parseInt(previous));
-                previousIP = previousIP.substring(1);
-                previousIP = "1"+previousIP;
-                String nextIP = nodeHandler.nodesMap.get(Integer.parseInt(next));
-                nextIP = nextIP.substring(1);
-                nextIP = "1"+nextIP;
-                System.out.println("NextIP = "+nextIP);
-                System.out.println("previousIP = "+previousIP);
-                if (nodeHandler.nodesMap.size() == 1)
-                    System.out.println("Last node left the network...");
-                else{
-                    try {
-                        sendUniCast("NewNext," + next + "," + current, InetAddress.getByName(previousIP));
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        sendUniCast("NewPrev," + previous + "," + current, InetAddress.getByName(nextIP));
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    }
+        if ("Exit".equals(command)) {
+            String current;
+            String previous;
+            String next;
+            index = (message.indexOf("Curr: ")) + 6;
+            int indexx = message.indexOf(",Prev: ");
+            current = message.substring(index, indexx);
+            indexx = indexx + 7;
+            index = message.indexOf(",Next: ");
+            previous = message.substring(indexx, index);
+            index = index + 7;
+            next = message.substring(index);
+            String previousIP = nodeHandler.nodesMap.get(Integer.parseInt(previous));
+            previousIP = previousIP.substring(1);
+            previousIP = "1" + previousIP;
+            String nextIP = nodeHandler.nodesMap.get(Integer.parseInt(next));
+            nextIP = nextIP.substring(1);
+            nextIP = "1" + nextIP;
+            System.out.println("NextIP = " + nextIP);
+            System.out.println("previousIP = " + previousIP);
+            if (nodeHandler.nodesMap.size() == 1)
+                System.out.println("Last node left the network...");
+            else {
+                try {
+                    sendUniCast("NewNext," + next + "," + current, InetAddress.getByName(previousIP));
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
                 }
-                nodeHandler.removeNode(nodeHandler.nodesMap.get(Integer.parseInt(current)));
-                break;
-
-            default:
-                break;
+                try {
+                    sendUniCast("NewPrev," + previous + "," + current, InetAddress.getByName(nextIP));
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+            }
+            nodeHandler.removeNode(nodeHandler.nodesMap.get(Integer.parseInt(current)));
         }
         Status.showStatus();
     }
 
-    private void sendUniCast(String message, InetAddress hostAddress){
+    private void sendUniCast(String message, InetAddress hostAddress) {
         System.out.println("Sending unicast: [" + hostAddress + "]: " + message);
         if (message != null) {
             DatagramSocket UDPSocket = null;

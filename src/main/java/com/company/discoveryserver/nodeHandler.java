@@ -8,7 +8,7 @@ import java.io.*;
 
 public class nodeHandler {
 
-    public static ConcurrentHashMap<Integer, String> nodesMap = new ConcurrentHashMap<Integer, String>();
+    public static ConcurrentHashMap<Integer, String> nodesMap = new ConcurrentHashMap<>();
 
     public static void updateXML() { //The XML has to be updated after every adding/removing of a node
         System.out.println("Updating XML file");
@@ -20,15 +20,15 @@ public class nodeHandler {
     }
 
     public static void addNode(String name, String IP) {
-        System.out.println("Node added with credentials (name|ip) ==> ("+name+" | "+IP+")");
+        System.out.println("Node added with credentials (name|ip) ==> (" + name + " | " + IP + ")");
         Node tempNode = new Node(name, IP);
-        System.out.println("The ID of the new node is: "+tempNode.getID());
+        System.out.println("The ID of the new node is: " + tempNode.getID());
         nodesMap.put(tempNode.getID(), tempNode.getIP());
         updateXML();
     }
 
     public static void removeNode(String IP) {
-        System.out.println("Removing Node with IP: "+IP+" from hashmap");
+        System.out.println("Removing Node with IP: " + IP + " from hashmap");
         for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (IP.equals(entry.getValue())) {
                 nodesMap.remove(entry.getKey());
@@ -38,8 +38,8 @@ public class nodeHandler {
     }
 
     public static void removeNodeviaName(String name) {
-        int ID= Hasher.hashCode(name);
-        System.out.println("Removing Node with name: "+name+" from hashmap");
+        int ID = Hasher.hashCode(name);
+        System.out.println("Removing Node with name: " + name + " from hashmap");
         for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (ID == entry.getKey()) {
                 nodesMap.remove(entry.getKey());
@@ -48,9 +48,9 @@ public class nodeHandler {
         updateXML();
     }
 
-    public static boolean checkNode(String IP){
-        System.out.println("\nChecking if "+IP+" is already part of the active users...");
-        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
+    public static boolean checkNode(String IP) {
+        System.out.println("\nChecking if " + IP + " is already part of the active users...");
+        Iterator<Map.Entry<Integer, String>> iterator = nodesMap.entrySet().iterator();
         boolean isPresent = false;
         while (iterator.hasNext()) {
             Map.Entry<Integer, String> entry = iterator.next();
@@ -61,11 +61,9 @@ public class nodeHandler {
         return isPresent;
     }
 
-    public static String getKey(String IP){
+    public static String getKey(String IP) {
         int key = 0;
-        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, String> entry = iterator.next();
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (IP.equals(entry.getValue())) {
                 key = entry.getKey();
             }
@@ -79,14 +77,12 @@ public class nodeHandler {
     public static String getPrevious(String key) {
         int temp = -2147483647;
         int check = Integer.parseInt(key);
-        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, String> entry = iterator.next();
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (check > entry.getKey())
                 if (temp < entry.getKey())
                     temp = entry.getKey();
         }
-        if (temp == -2147483647){
+        if (temp == -2147483647) {
             temp = nodeHandler.getBiggestKey();
         }
         return String.valueOf(temp);
@@ -94,9 +90,7 @@ public class nodeHandler {
 
     private static int getBiggestKey() { //because in a map you can't just do max(nodesMap) you have to iterate over all the keys
         int temp = -2147483647;
-        Iterator<Map.Entry<Integer, String>> iterator = nodesMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, String> entry = iterator.next();
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (entry.getKey() > temp)
                 temp = entry.getKey();
         }
@@ -106,9 +100,7 @@ public class nodeHandler {
     public static String getNext(String key) {
         int temp = 2147483647;
         int check = Integer.parseInt(key);
-        Iterator<Map.Entry<Integer, String> > iterator = nodesMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, String> entry = iterator.next();
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (check < entry.getKey())
                 if (temp > entry.getKey())
                     temp = entry.getKey();
@@ -120,9 +112,7 @@ public class nodeHandler {
 
     private static int getSmallestKey() {
         int temp = 2147483647;
-        Iterator<Map.Entry<Integer, String>> iterator = nodesMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, String> entry = iterator.next();
+        for (Map.Entry<Integer, String> entry : nodesMap.entrySet()) {
             if (entry.getKey() < temp)
                 temp = entry.getKey();
         }

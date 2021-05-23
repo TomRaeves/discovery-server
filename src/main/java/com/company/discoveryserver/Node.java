@@ -5,30 +5,30 @@ public class Node {
     private int ID;
     private String IP;
 
-    public Node(String nodeName,String IP){
+    public Node(String nodeName, String IP) {
         this.nodeName = nodeName; //nodeName is purely used to make the ID and has no further use.
         this.ID = Hasher.hashCode(nodeName);
         this.IP = IP;
     }
 
-    public String getNodeName(){
+    public String getNodeName() {
         return nodeName;
     }
 
-    public int getID(){
+    public int getID() {
         return ID;
     }
 
-    public String getIP(){
+    public String getIP() {
         return IP;
     }
 
-    public void setNodeName(String nodeName){
+    public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
         this.ID = Hasher.hashCode(nodeName);
     }
 
-    public void setIP(String IP){
+    public void setIP(String IP) {
         this.IP = IP;
     }
 }

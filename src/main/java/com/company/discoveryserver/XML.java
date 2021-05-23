@@ -13,7 +13,7 @@ public class XML {
             try {
                 XMLOutputFactory xof = XMLOutputFactory.newInstance();
 
-                xsw = xof.createXMLStreamWriter(new FileOutputStream(filename),"UTF-8");
+                xsw = xof.createXMLStreamWriter(new FileOutputStream(filename), "UTF-8");
                 xsw.writeStartDocument("utf-8", "1.0");
                 xsw.writeStartElement("entries");
                 xsw.writeCharacters("\r\n");

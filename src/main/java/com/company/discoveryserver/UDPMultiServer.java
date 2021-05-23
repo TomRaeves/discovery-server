@@ -3,7 +3,7 @@ package com.company.discoveryserver;
 import java.io.IOException;
 import java.net.*;
 
-public class UDPMultiServer extends Thread{ //This server handles the multicast messages
+public class UDPMultiServer extends Thread { //This server handles the multicast messages
 
     private static boolean running = true;
     private static MulticastSocket multicastSocket;
@@ -18,13 +18,13 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
         UDPMultiServer.multicastPort = multicastPort;
         try {
             UDPMultiServer.multicastSocket = new MulticastSocket(UDPMultiServer.multicastPort);
-            System.out.println("created multicastSocket on port: "+multicastPort);
+            System.out.println("created multicastSocket on port: " + multicastPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             UDPMultiServer.multicastSocket.joinGroup(InetAddress.getByName(UDPMultiServer.multicastAddress));
-            System.out.println("added multicastSocket to group with ip: "+UDPMultiServer.multicastAddress);
+            System.out.println("added multicastSocket to group with ip: " + UDPMultiServer.multicastAddress);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,12 +45,12 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
     }
 
     public void shutdown() {
-        if (UDPMultiServer.multicastSocket.isClosed())
-            UDPMultiServer.running = false;
-        else{
-            UDPMultiServer.multicastSocket.close();
-            UDPMultiServer.running = false;
+        if (UDPMultiServer.multicastSocket.isClosed()) {
         }
+        else {
+            UDPMultiServer.multicastSocket.close();
+        }
+        UDPMultiServer.running = false;
     }
 
     // onDataReceived and handleData is point 4a-b-c of Discovery and Bootstrap
@@ -70,17 +70,12 @@ public class UDPMultiServer extends Thread{ //This server handles the multicast 
             message = data.substring(index + 1);
         }
         assert command != null;
-        switch (command) {
-            case "Start":
-                nodeHandler.addNode(message, String.valueOf(hostAddress.getHostAddress()));
-                if (nodeHandler.nodesMap.size() == 1)
-                    sendUniCast("There are no other nodes in the network!", hostAddress);
-                else
-                    sendUniCast("Other nodes in the network," + (nodeHandler.nodesMap.size() - 1) + ", Previous ID: " + nodeHandler.getPrevious(nodeHandler.getKey(String.valueOf(hostAddress.getHostAddress()))) + ", Next ID: " + nodeHandler.getNext(nodeHandler.getKey(String.valueOf(hostAddress.getHostAddress()))), hostAddress);
-                break;
-
-            default:
-                break;
+        if ("Start".equals(command)) {
+            nodeHandler.addNode(message, String.valueOf(hostAddress.getHostAddress()));
+            if (nodeHandler.nodesMap.size() == 1)
+                sendUniCast("There are no other nodes in the network!", hostAddress);
+            else
+                sendUniCast("Other nodes in the network," + (nodeHandler.nodesMap.size() - 1) + ", Previous ID: " + nodeHandler.getPrevious(nodeHandler.getKey(String.valueOf(hostAddress.getHostAddress()))) + ", Next ID: " + nodeHandler.getNext(nodeHandler.getKey(String.valueOf(hostAddress.getHostAddress()))), hostAddress);
         }
         Status.showStatus();
     }

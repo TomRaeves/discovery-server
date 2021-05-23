@@ -5,30 +5,26 @@ import java.util.*;
 
 public class Status {
 
-        public static void showStatus() {
-                printNodeMap();
-                printMap();
-                System.out.println("\n");
-        }
+    public static void showStatus() {
+        printNodeMap();
+        printMap();
+        System.out.println("\n");
+    }
 
-        public static void printMap(){
-                int counter=0;
-                Iterator<Map.Entry<Integer, File>> iterator = fileHandler.filesMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                        counter++;
-                        Map.Entry<Integer, File> entry = iterator.next();
-                        System.out.println("File "+counter+" with Name: "+entry.getValue().getFilename()+", ID: "+entry.getKey());
-                }
+    public static void printMap() {
+        int counter = 0;
+        for (Map.Entry<Integer, File> integerFileEntry : fileHandler.filesMap.entrySet()) {
+            counter++;
+            System.out.println("File " + counter + " with Name: " + integerFileEntry.getValue().getFilename() + ", ID: " + integerFileEntry.getKey());
         }
+    }
 
-        public static void printNodeMap(){
-                System.out.println("\nAmount of nodes in the network: " + nodeHandler.nodesMap.size());
-                int counter=0;
-                Iterator<Map.Entry<Integer, String>> iterator = nodeHandler.nodesMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                        counter++;
-                        Map.Entry<Integer, String> entry = iterator.next();
-                        System.out.println("Node "+counter+" with IP: "+entry.getValue()+", || Previous ID: "+nodeHandler.getPrevious(Integer.toString(entry.getKey()))+" || with ID: "+entry.getKey()+"|| Next ID: "+nodeHandler.getNext(Integer.toString(entry.getKey())));
-                }
+    public static void printNodeMap() {
+        System.out.println("\nAmount of nodes in the network: " + nodeHandler.nodesMap.size());
+        int counter = 0;
+        for (Map.Entry<Integer, String> integerStringEntry : nodeHandler.nodesMap.entrySet()) {
+            counter++;
+            System.out.println("Node " + counter + " with IP: " + integerStringEntry.getValue() + ", || Previous ID: " + nodeHandler.getPrevious(Integer.toString(integerStringEntry.getKey())) + " || with ID: " + integerStringEntry.getKey() + "|| Next ID: " + nodeHandler.getNext(Integer.toString(integerStringEntry.getKey())));
         }
+    }
 }
