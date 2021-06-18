@@ -18,7 +18,6 @@ public class DiscoveryServerApplication {
     private static boolean running = true;
 
     public static void main(String[] args) {
-        GUI gui = new GUI();
         UDPServer UDP = new UDPServer(receivePort, sendPort);
         UDP.start();
         UDPMultiServer UDPM = new UDPMultiServer(multicastPort, multicastAddress, sendPort);
